@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kasul Bot Controls</title>
+  <link rel="stylesheet" href="static/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.0/socket.io.js" integrity="sha512-nYuHvSAhY5lFZ4ixSViOwsEKFvlxHMU2NHts1ILuJgOS6ptUmAGt/0i5czIgMOahKZ6JN84YFDA+mCdky7dD8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+  $( function() {
+    $( "#sortable" ).sortable();
+  } );
+  </script>
+</head>
+<body>
+  <div id='main'>
+    <div id='play-box'>
+      <div id = 'play-current'>
+        <div id = 'play-info'>
+          <p class="f-14" id = 'play-name'></p>
+          <p class="f-12" id = 'play-time'>00:00:00</p>
+        </div>
+        <div id='play-controls'>
+          <button class="control_btn" id = "skip-backward"><img  src='static/skip-backward-button.svg'/></button>
+          <button class="control_btn" id = "play-resume"><img   src='static/play-button.svg'/></button>
+          <button class="control_btn" id = "skip-forward"><img  src='static/skip-forward-button.svg'/></button>
+        </div>  
+        <input id='play-line' type="range" value="0" onkeydown="return false"/>
+      </div>
+    </div>
+    <div id='queue-controls'>
+      <form id='queue-form'>
+        <input id='queue-source' type="url" placeholder="YouTube video URL" required/>
+        <input type="image" src="static/plus-circle.svg" name="enqueue" />
+        <input type="image" src="static/play-circle-small.svg" name="play" />
+      </form>
+      <label class='f-12' for = 'queue-keep' >Keep Queue?</label>
+      <label class="switch">
+        <input id='queue-keep' type="checkbox">
+        <span class="slider round"></span>
+      </label>
+      <button id='queue-clear'><img src='static/x-circle.svg' /></button>
+    </div>
+    <div id="sort-container">
+      <ul id="sortable">
+        
+      </ul>
+    </div>
+  </div>
+</body>
+<script src="static/script.js"></script>
+</html>
