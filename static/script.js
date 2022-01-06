@@ -14,7 +14,7 @@ toHHMMSS = function (sec_num) {
 
 
 
-const WS_ENDPOINT = 'ws://127.0.0.1:5000'
+//const WS_ENDPOINT = 'ws://127.0.0.1:5000'
 
 const playLine = $("#play-line")
 const playLineTrack = $('input[type=range]::-webkit-slider-runnable-track')
@@ -22,6 +22,7 @@ const playLineTrack = $('input[type=range]::-webkit-slider-runnable-track')
 let isPaused = true
 let isStopped = true
 let isRequestingPos = false
+
 const pauseSVG = "static/pause-button.svg"
 const resumeSVG = "static/play-button.svg"
 const resumeBtn = $("#play-resume")
@@ -45,16 +46,28 @@ let audioLength = 0
 let isPlayLineDrag = false
 
 let trailCss
+let trailCssMoz
+
+//time between blur/focus after which blur event will invoke ui update
+//fix for setInterval not running properly when tab is not active
+const MIN_BLUR_TIME = 5000 
+let winBlurLast = new Date().getTime()
+
+
 for(var j = 0; j < document.styleSheets[0].cssRules.length; j++) {
     var rule = document.styleSheets[0].cssRules[j];
     if(rule.selectorText === "input[type=\"range\"]::-webkit-slider-runnable-track") {
         trailCss = rule
     }
+    //::-moz elements won't show up in other browsers
+    else if(rule.selectorText === "input[type=\"range\"]::-moz-range-track") {
+        trailCss = rule
+    }
+    
 }
 const setPlayLineTrail = (value) => {
     gradient = `linear-gradient(90deg, rgba(88,101,242,1) 0%, rgba(88,101,242,1) ${value}%, rgba(19,19,19,1) ${value}%, rgba(19,19,19,1) 100%)`
     trailCss.style.background=gradient;
-    //console.log("Trail ",rule)
 }
 
 const setPlayLine = (value) => {
@@ -160,10 +173,6 @@ const initControls = () => {
         else {
             isPaused = true
         }
-        console.log(data.data)
-        
-        
-        
         resumeBtn.children('img').attr("src", isPaused ? resumeSVG:pauseSVG);
     }
     cmdPost(data, callback)
@@ -366,6 +375,17 @@ playFlow()
 //}
 //  
 //wsConnect();
+
+$(window).focus(function() {
+    if (new Date().getTime() - winBlurLast > MIN_BLUR_TIME) {
+        console.log('Upd')
+        initControls()
+    }
+});
+
+$(window).blur(function() { 
+    winBlurLast = new Date().getTime()
+});
 
 
 
