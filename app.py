@@ -1,7 +1,8 @@
 from os import stat
+from os.path import join
 from flask import Flask, render_template, request, Response
 from local_bridge import send_to_bot, set_addr
-from utils import is_bot_response_success
+from utils import is_bot_response_success, get_working_dir
 from configparser import ConfigParser
 import waitress
 import json
@@ -46,7 +47,7 @@ def cmd(web_id):
 
 if __name__ == '__main__':
     parser = ConfigParser()
-    parser.read('config.ini')
+    parser.read(join(get_working_dir(),'config.ini'))
     ip = parser['LOCAL_SERVER']['Ip']
     port = parser['LOCAL_SERVER']['Port']
     set_addr(ip, port)
