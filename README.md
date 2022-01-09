@@ -15,4 +15,4 @@ Web UI controls for [Discord Kasul Bot](https://github.com/Vansh0t/Kasul-Bot) ma
 1. Setup [Discord Kasul Bot](https://github.com/Vansh0t/Kasul-Bot). Start it.
 2. AFTER Kasul Bot is launched successfully start Web Controls executable, it will connect to bot.
 3. In discord channel type /web to get web controls url.
-4. (Opt) By default web controls url can only be accessed from local network (localhost). Change ip/port values in config.ini [WEB] section to change the network.
+4. (Opt) By default web controls url can only be accessed from local network (localhost). Change ip/port values in config.ini [WEB] section to change the network. Ip/port should not be in use by other apps.
