@@ -10,8 +10,6 @@ import json
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-ROOT_ACCESS_SECRET = 'OkS1vGLyJBwokfat606CqNmqHBNZlfIy'
-
 @app.after_request
 def add_header(r):
     """
